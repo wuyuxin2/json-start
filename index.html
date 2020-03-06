@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>json-test</title>
+  </head>
+  <body>
+    <div id="create">
+      <input type="text" name="" id="" placeholder="please type 'body' here" />
+      <a href="javascript:;">create</a>
+    </div>
+    <hr />
+    <div id="delete">
+      <input type="text" name="" id="" placeholder="please type 'id' here" />
+      <a href="javascript:;">delete</a>
+    </div>
+    <hr />
+    <div id="update">
+      <input type="text" name="id" id="" placeholder="please type 'id' here" />
+      <input
+        type="text"
+        name="body"
+        id=""
+        placeholder="please type 'body' here"
+      />
+      <a href="javascript:;">update</a>
+    </div>
+    <hr />
+    <ul id="comments"></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      $(function() {
+        $.ajax({
+          url: "http://localhost:3000/comments",
+          method: "get",
+          dataType: "json",
+          data: {}
+        })
+          .done(function(res) {
+            console.log(res);
+            $("#comments").empty();
+            res.forEach(element => {
+              $("#comments").append(
+                "<li>" + element.id + element.body + "</li>"
+              );
+            });
+          })
+          .fail(function(err) {
+            console.log(err);
+          });
+      });
+      $("#create > a").on("click", function() {
+        let body = $("#create > input")
+          .val()
+          .trim();
+        if (!body) return false;
+        $.ajax({
+          url: "http://localhost:3000/comments",
+          method: "post",
+          dataType: "json",
+          data: {
+            body: body
+          }
+        })
+          .done(function(res) {
+            console.log(res);
+          })
+          .fail(function(err) {
+            console.log(err);
+          });
+      });
+      $("#delete > a").on("click", function() {
+        let id = $("#delete > input")
+          .val()
+          .trim();
+        if (!id) return false;
+        $.ajax({
+          url: "http://localhost:3000/comments/" + id,
+          method: "delete",
+          dataType: "json",
+          data: {}
+        })
+          .done(function(res) {
+            console.log(res);
+          })
+          .fail(function(err) {
+            console.log(err);
+          });
+      });
+      $("#update > a").on("click", function() {
+        let id = $("#update > input[name=id]")
+          .val()
+          .trim();
+        if (!id) return false;
+        let body = $("#update > input[name=body]")
+          .val()
+          .trim();
+        if (!body) return false;
+        $.ajax({
+          url: "http://localhost:3000/comments/" + id,
+          method: "put",
+          dataType: "json",
+          data: {
+            id: id,
+            body: body
+          }
+        })
+          .done(function(res) {
+            console.log(res);
+          })
+          .fail(function(err) {
+            console.log(err);
+          });
+      });
+    </script>
+  </body>
+</html>

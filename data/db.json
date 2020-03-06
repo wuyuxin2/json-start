@@ -1,0 +1,38 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "id": 3,
+      "body": "happy"
+    },
+    {
+      "id": 6,
+      "body": "you are great!"
+    },
+    {
+      "body": "you are superman!",
+      "id": 7
+    },
+    {
+      "body": "收到粉丝",
+      "id": 8
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
